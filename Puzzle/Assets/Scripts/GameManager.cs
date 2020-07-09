@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +12,11 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public GridGenerator gridGenerator;
+    public SymbolManager symbolManager;
+
+    public GameState state = GameState.None;
+
+    //public GridGenerator gridGenerator;
 
     private void Awake()
     {
@@ -25,6 +30,14 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        gridGenerator.GenerateTileMap();
+        SetGameStart();
+        //gridGenerator.GenerateTileMap();
+    }
+
+    public void SetGameStart()
+    {
+        GC.Collect();
+        state = GameState.Normal;
+        symbolManager.InitGridMap();
     }
 }
