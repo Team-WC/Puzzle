@@ -73,7 +73,7 @@ public class SymbolManager : MonoBehaviour
             for(int x = 0; x < 5; x++)
             {
                 int index = (y * 5) + x; 
-                symbolItems[index].SetItem(x, y, SymbolColor.None, SymbolType.Blank);
+                symbolItems[index].SetSymbol(x, y, SymbolColor.None, SymbolType.Blank);
             }
         }
 
@@ -83,7 +83,7 @@ public class SymbolManager : MonoBehaviour
 
     public void SetGridItem(int x, int y, SymbolColor color, SymbolType type)
     {
-        symbolItems[x * 5 + y].SetItem(x, y, color, type);
+        symbolItems[x * 5 + y].SetSymbol(x, y, color, type);
         symbolItems[x * 5 + y].PlayGradeAnimation();
     }
 
@@ -94,7 +94,7 @@ public class SymbolManager : MonoBehaviour
             SymbolColor color = (SymbolColor)Random.Range(1, 6);
             SymbolType type = CalculateRandomNextSymbol();
 
-            InventorySymbols[i].SetItem(0, 0, color, type);
+            InventorySymbols[i].SetSymbol(0, 0, color, type);
         }
     }
 
@@ -103,12 +103,14 @@ public class SymbolManager : MonoBehaviour
         SymbolColor color = (SymbolColor)Random.Range(1, 6);
         SymbolType type = CalculateRandomNextSymbol();
 
-        nextSymbol.SetItem(0, 0, color, type);
+        nextSymbol.SetSymbol(0, 0, color, type);
     }
 
     private SymbolType CalculateRandomNextSymbol()
     {
         int value = Random.Range(0, 100);
+
+        Debug.Log(value);
 
         if(value < 60)
         {
@@ -128,15 +130,18 @@ public class SymbolManager : MonoBehaviour
         }
         else if (value >= 94 && value < 97)
         {
-            return SymbolType.JewelrySeed;
+            return SymbolType.NormalSeed;
+            //return SymbolType.JewelrySeed;
         }
         else if (value >= 97 && value < 99)
         {
-            return SymbolType.JewelryBud;
+            return SymbolType.NormalSeed;
+            //return SymbolType.JewelryBud;
         }
         else
         {
-            return SymbolType.JewelryFlower;
+            return SymbolType.NormalBud;
+            //return SymbolType.JewelryFlower;
         }
     }
 

@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 public class Symbol : MonoBehaviour
 {
     [SerializeField]
-    private Image symbolImage;
+    private ColorTypeSymbol[] colorTypeSymbol;
     [SerializeField]
     private Image backGroundImage;
 
@@ -49,29 +49,35 @@ public class Symbol : MonoBehaviour
         originPos = this.transform.localPosition;
     }
 
-    public void SetItem(int _x, int _y, SymbolColor _color, SymbolType _type)
+    public void SetSymbol(int _x, int _y, SymbolColor _color, SymbolType _type)
     {
         x = _x;
         y = _y;
         color = _color;
         type = _type;
 
-        if(type == SymbolType.Blank)
-        {
-            symbolImage.color = new Color(1, 1, 1, 0);
-        }
-        else
-        {
-            symbolImage.color = new Color(1, 1, 1, 1);
-        }
+        HideSymbol();
 
-        SetImage();
+        if (type != SymbolType.Blank)
+        {
+            SetImage();
+        }
     }
 
     private void SetImage()
     {
-        symbolImage.sprite = GameManager.Instance.symbolManager.GetSymbolSprite(type);
+        int index = (int)type - 1;
+
+        colorTypeSymbol[index].ShowSymbol(color);
         backGroundImage.color = GameManager.Instance.symbolManager.GetSymbolColor(color);
+    }
+
+    public void HideSymbol()
+    {
+        for(int i = 0; i < colorTypeSymbol.Length; i++)
+        {
+            colorTypeSymbol[i].HideSymbol();
+        }
     }
 
     public void PlayGradeAnimation()

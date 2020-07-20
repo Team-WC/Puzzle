@@ -12,11 +12,11 @@ public enum GameState
 public enum SymbolColor
 {
     None = 0,
-    Yellow,
     Red,
-    Green,
+    Yellow,
+    Purpple,
+    Blue,
     Orange,
-    Violet,
     Rainbow,
 }
 
